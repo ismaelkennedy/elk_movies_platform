@@ -1,0 +1,4 @@
+logs/*
+data/*.csv
+.DS_Store
+*.pyc
