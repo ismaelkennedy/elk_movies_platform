@@ -12,13 +12,12 @@ Fibonacci: 1, 2, 3, 5, 8, 13
 ## 3) Stories estimées
 | ID | User Story | Votes initiaux | Estimation finale | Hypothèses | Owner |
 | --- | --- | --- | --- | --- | --- |
-| US-01 | Bootstrap & Infra : Docker-compose ELK fonctionnel et reproductible. | 2, 3, 3, 2 | 3 | La RAM des machines est suffisante. |  |
-| US-02 | Ingestion brute : Lecture CSV et indexation dans movies_raw.| 2, 2, 3, 1 | 2 | Le CSV n'a pas de lignes corrompues. |  |
-| US-03 | Nettoyage & Mapping : Pipeline Logstash (types, dates, listes) vers movies_clean. | 5, 8, 8, 5 | 8 |  Les colonnes JSON (genres, etc.) sont complexes à parser.|  |
-| US-04 | Recherche & DSL : 12 requêtes Elasticsearch dont 5 bool. | 3, 5, 5, 3 | 5 | Nécessite une bonne compréhension du mapping. |  |
-| US-05 | Dashboard Kibana : 6 à 8 visualisations avec analyse métier. | 3, 3, 5, 3 | 3 | On utilise Kibana Lens pour aller plus vite. |  |
-| US-06 | Mini Moteur de Recherche : UI ou API connectée à ES avec filtres.| 5, 8, 5, 5 | 5 | Utilisation de Python (Flask) ou Node.js. |  |
-| US-07 | Documentation & Démo : GIF, Runbook et rapport de 5 pages.| 3, 5, 3, 5 | 5 | Très chronophage sur la fin du projet. |  |
+| US-01 | Bootstrap, Ingestion & Nettoyage : Docker-compose ELK opérationnel + lecture CSV, indexation dans movies_raw, puis pipeline Logstash de nettoyage (types, dates, listes, valeurs manquantes) vers movies_clean. | 3, 5, 5, 3 | 5 | RAM suffisante ; CSV sans lignes corrompues ; colonnes JSON (credits, recommendations) complexes à parser. | C |
+| US-02 | Mapping & Analyzer : mapping.json explicite pour movies_clean + analyzer custom sur title/overview. | 2, 3, 3, 3 | 3 | Le mapping est poussé via PUT avant que Logstash ne tourne. | A (alternant) |
+| US-03 | Recherche & DSL : 12 requêtes Elasticsearch dont 5 bool. | 3, 5, 5, 3 | 5 | Nécessite une bonne compréhension du mapping. | D |
+| US-04 | Dashboard Kibana : 6 à 8 visualisations avec analyse métier. | 3, 3, 5, 3 | 3 | On utilise Kibana Lens pour aller plus vite. | A (alternant) |
+| US-05 | Mini Moteur de Recherche : UI ou API connectée à ES avec filtres. | 5, 8, 5, 5 | 5 | Utilisation de Python (Flask) ou Node.js. | D |
+| US-06 | Documentation & Démo : GIF, Runbook et rapport de 5 pages. | 3, 5, 3, 5 | 5 | Très chronophage sur la fin du projet. | B (alternant) |
 
 
 
