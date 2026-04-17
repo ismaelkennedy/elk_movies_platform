@@ -1,0 +1,130 @@
+{
+  "settings": {
+    "number_of_shards": 1,
+    "number_of_replicas": 0,
+    "analysis": {
+      "char_filter": {
+        "html_strip_filter": {
+          "type": "html_strip"
+        }
+      },
+      "filter": {
+        "english_stop": {
+          "type": "stop",
+          "stopwords": "_english_"
+        },
+        "english_stemmer": {
+          "type": "stemmer",
+          "language": "english"
+        },
+        "ascii_fold": {
+          "type": "asciifolding",
+          "preserve_original": true
+        }
+      },
+      "analyzer": {
+        "movies_text_analyzer": {
+          "type": "custom",
+          "char_filter": ["html_strip_filter"],
+          "tokenizer": "standard",
+          "filter": [
+            "lowercase",
+            "ascii_fold",
+            "english_stop",
+            "english_stemmer"
+          ]
+        },
+        "movies_search_analyzer": {
+          "type": "custom",
+          "char_filter": ["html_strip_filter"],
+          "tokenizer": "standard",
+          "filter": [
+            "lowercase",
+            "ascii_fold",
+            "english_stop",
+            "english_stemmer"
+          ]
+        }
+      }
+    }
+  },
+  "mappings": {
+    "properties": {
+      "id": {
+        "type": "integer"
+      },
+      "title": {
+        "type": "text",
+        "analyzer": "movies_text_analyzer",
+        "search_analyzer": "movies_search_analyzer",
+        "fields": {
+          "keyword": {
+            "type": "keyword",
+            "ignore_above": 256
+          }
+        }
+      },
+      "overview": {
+        "type": "text",
+        "analyzer": "movies_text_analyzer",
+        "search_analyzer": "movies_search_analyzer"
+      },
+      "tagline": {
+        "type": "text",
+        "analyzer": "movies_text_analyzer"
+      },
+      "genres": {
+        "type": "keyword"
+      },
+      "original_language": {
+        "type": "keyword"
+      },
+      "status": {
+        "type": "keyword"
+      },
+      "release_date": {
+        "type": "date",
+        "format": "yyyy-MM-dd"
+      },
+      "popularity": {
+        "type": "float"
+      },
+      "budget": {
+        "type": "long"
+      },
+      "revenue": {
+        "type": "long"
+      },
+      "runtime": {
+        "type": "float"
+      },
+      "vote_average": {
+        "type": "float"
+      },
+      "vote_count": {
+        "type": "integer"
+      },
+      "production_companies": {
+        "type": "keyword"
+      },
+      "credits": {
+        "type": "keyword"
+      },
+      "keywords": {
+        "type": "keyword"
+      },
+      "poster_path": {
+        "type": "keyword",
+        "index": false
+      },
+      "backdrop_path": {
+        "type": "keyword",
+        "index": false
+      },
+      "recommendations": {
+        "type": "keyword",
+        "index": false
+      }
+    }
+  }
+}
