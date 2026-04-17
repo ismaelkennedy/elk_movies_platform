@@ -48,7 +48,7 @@
       }
     }
   },
-  "mappings": {
+  "mappings": { 
     "properties": {
       "id": {
         "type": "integer"
@@ -84,7 +84,7 @@
       },
       "release_date": {
         "type": "date",
-        "format": "yyyy-MM-dd"
+        "format": "yyyy-MM-dd||strict_date_optional_time"
       },
       "popularity": {
         "type": "float"
