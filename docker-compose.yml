@@ -36,12 +36,29 @@ services:
       retries: 20
       start_period: 30s
 
+  es-init:
+    image: curlimages/curl:8.5.0
+    container_name: es-init
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+    volumes:
+      - ./elasticsearch:/mappings:ro
+    entrypoint: >
+      sh -c "curl -s -o /dev/null -w '%{http_code}' http://elasticsearch:9200/movies_clean | grep -q 200
+      || curl -X PUT http://elasticsearch:9200/movies_clean
+      -H 'Content-Type: application/json'
+      --data-binary @/mappings/mapping.json"
+    restart: "no"
+
   logstash:
     image: docker.elastic.co/logstash/logstash:8.10.2
     container_name: logstash
     depends_on:
       elasticsearch:
         condition: service_healthy
+      es-init:
+        condition: service_completed_successfully
     environment:
       - "LS_JAVA_OPTS=-Xms256m -Xmx256m"
     volumes:
