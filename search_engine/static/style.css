@@ -1,4 +1,16 @@
-* { box-sizing: border-box; margin: 0; padding: 0; }
+/* ============================================================
+   BODY — style global de la page
+   On choisit une couleur de fond très sombre (#0f0f1a = bleu nuit)
+   et un texte clair (#e0e0e0 = gris clair) pour le mode dark.
+   min-height: 100vh garantit que le fond couvre toute la fenêtre
+   même si le contenu est court.
+============================================================ */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
 body {
   font-family: 'Segoe UI', Arial, sans-serif;
@@ -7,6 +19,14 @@ body {
   min-height: 100vh;
 }
 
+
+/* ============================================================
+   HEADER — barre de navigation en haut
+   linear-gradient crée un dégradé diagonal entre deux teintes
+   de bleu nuit. border-bottom ajoute une fine ligne de séparation.
+   display: flex + align-items: center aligne le contenu
+   verticalement au centre.
+============================================================ */
 header {
   background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
   border-bottom: 1px solid #2a2a4a;
@@ -16,23 +36,36 @@ header {
   gap: 16px;
 }
 
+/* Titre principal dans le header — rouge Netflix */
 header h1 {
   font-size: 1.6rem;
   color: #e50914;
-  letter-spacing: 1px;
+  letter-spacing: 1px; /* espace léger entre les lettres */
 }
 
+/* Sous-titre "With Elasticsearch" — texte discret gris */
 header span {
   font-size: 0.85rem;
   color: #888;
 }
 
+
+/* ============================================================
+   CONTAINER — boîte centrale qui limite la largeur du contenu
+   max-width empêche le contenu de s'étirer sur grands écrans.
+   margin: 0 auto centre horizontalement le container.
+============================================================ */
 .container {
   max-width: 1100px;
   margin: 0 auto;
   padding: 30px 20px;
 }
 
+
+/* ============================================================
+   SEARCH BOX — la carte qui contient la barre de recherche
+   et les filtres. border-radius arrondit les coins.
+============================================================ */
 .search-box {
   background: #16213e;
   border: 1px solid #2a2a4a;
@@ -41,12 +74,17 @@ header span {
   margin-bottom: 24px;
 }
 
+/* Ligne qui contient le champ texte + le bouton "Rechercher"
+   display: flex les place côte à côte automatiquement */
 .search-row {
   display: flex;
   gap: 12px;
   margin-bottom: 16px;
 }
 
+/* Champ de texte principal
+   flex: 1 lui dit de prendre tout l'espace horizontal disponible
+   (le bouton garde sa taille fixe, le champ prend le reste) */
 .search-row input[type="text"] {
   flex: 1;
   padding: 12px 16px;
@@ -55,14 +93,16 @@ header span {
   background: #0f0f1a;
   color: #e0e0e0;
   font-size: 1rem;
-  outline: none;
-  transition: border 0.2s;
+  outline: none; /* supprime le contour bleu par défaut du navigateur */
+  transition: border 0.2s; /* la bordure change de couleur en douceur au focus */
 }
 
+/* Quand l'utilisateur clique dans le champ, la bordure devient rouge */
 .search-row input[type="text"]:focus {
   border-color: #e50914;
 }
 
+/* Bouton "Rechercher" */
 .search-row button {
   padding: 12px 28px;
   background: #e50914;
@@ -70,21 +110,32 @@ header span {
   border: none;
   border-radius: 8px;
   font-size: 1rem;
-  cursor: pointer;
+  cursor: pointer; /* affiche la main au survol */
   font-weight: 600;
   transition: background 0.2s;
 }
 
-.search-row button:hover { background: #c00712; }
+/* Au survol du bouton, le rouge devient légèrement plus foncé */
+.search-row button:hover {
+  background: #c00712;
+}
 
+
+/* ============================================================
+   FILTRES — ligne de menus déroulants et champs numériques
+   flex-wrap: wrap permet aux filtres de passer à la ligne
+   automatiquement sur les petits écrans.
+============================================================ */
 .filters {
   display: flex;
   gap: 12px;
   flex-wrap: wrap;
 }
 
-.filters select, .filters input[type="number"] {
-  padding: 9px 12px;
+/* Style commun aux menus déroulants et aux champs "année" */
+.filters select,
+.filters input[type="number"] {
+  padding: 11px 16px;
   border-radius: 8px;
   border: 1px solid #3a3a5a;
   background: #0f0f1a;
@@ -95,21 +146,42 @@ header span {
   min-width: 140px;
 }
 
-.filters select:focus, .filters input[type="number"]:focus {
+/* Les menus déroulants ont plus d'espace à droite pour la flèche native */
+.filters select {
+  padding-right: 48px;
+}
+
+/* Bordure rouge au focus, comme pour le champ de recherche */
+.filters select:focus,
+.filters input[type="number"]:focus {
   border-color: #e50914;
 }
 
-.filters input[type="number"] { width: 110px; }
+/* Les champs "année" sont plus étroits que les menus déroulants */
+.filters input[type="number"] {
+  width: 110px;
+}
 
+/* Label au-dessus de chaque filtre ("Genre", "Langue", etc.) */
 .filters label {
   font-size: 0.75rem;
   color: #888;
-  display: block;
+  display: block; /* force le label à occuper toute la largeur */
   margin-bottom: 4px;
 }
 
-.filter-group { display: flex; flex-direction: column; }
+/* Chaque groupe label + champ est empilé verticalement */
+.filter-group {
+  display: flex;
+  flex-direction: column;
+}
 
+
+/* ============================================================
+   BANDEAU DE RÉSULTATS — "Environ X résultat(s) — Page N / M"
+   justify-content: space-between pousse le total à gauche
+   et le numéro de page à droite.
+============================================================ */
 .results-header {
   display: flex;
   justify-content: space-between;
@@ -119,8 +191,19 @@ header span {
   color: #888;
 }
 
-.results-header span { color: #e0e0e0; font-weight: 600; }
+/* Le nombre de résultats en blanc et gras pour le faire ressortir */
+.results-header span {
+  color: #e0e0e0;
+  font-weight: 600;
+}
 
+
+/* ============================================================
+   CARTE FILM
+   display: grid avec deux colonnes :
+   - 1fr = la partie gauche (infos du film) prend tout l'espace
+   - auto = la partie droite (note) prend juste ce dont elle a besoin
+============================================================ */
 .movie-card {
   background: #16213e;
   border: 1px solid #2a2a4a;
@@ -133,8 +216,12 @@ header span {
   transition: border 0.2s;
 }
 
-.movie-card:hover { border-color: #e50914; }
+/* Au survol de la carte, la bordure devient rouge */
+.movie-card:hover {
+  border-color: #e50914;
+}
 
+/* Titre du film — blanc et gras */
 .movie-title {
   font-size: 1.15rem;
   font-weight: 700;
@@ -142,8 +229,14 @@ header span {
   margin-bottom: 4px;
 }
 
-.movie-title mark { background: transparent; color: #e50914; }
+/* Les mots surlignés par Elasticsearch dans le titre
+   sont affichés en rouge (pas de fond jaune par défaut) */
+.movie-title mark {
+  background: transparent;
+  color: #e50914;
+}
 
+/* Slogan du film — gris clair et italique */
 .movie-tagline {
   font-size: 0.85rem;
   color: #aaa;
@@ -151,15 +244,27 @@ header span {
   margin-bottom: 8px;
 }
 
+/* Résumé du film */
 .movie-overview {
   font-size: 0.9rem;
   color: #bbb;
-  line-height: 1.5;
+  line-height: 1.5; /* interligne confortable pour la lecture */
   margin-bottom: 12px;
 }
 
-.movie-overview mark { background: rgba(229,9,20,0.15); color: #ff6b7a; border-radius: 2px; }
+/* Les mots surlignés dans le résumé — fond rouge très transparent */
+.movie-overview mark {
+  background: rgba(229, 9, 20, 0.15);
+  color: #ff6b7a;
+  border-radius: 2px;
+}
 
+
+/* ============================================================
+   BADGES — petites étiquettes colorées (genre, langue, statut)
+   flex-wrap: wrap permet aux badges de passer à la ligne
+   si la carte est trop étroite.
+============================================================ */
 .badges {
   display: flex;
   flex-wrap: wrap;
@@ -167,17 +272,28 @@ header span {
   margin-bottom: 10px;
 }
 
+/* Style de base commun à tous les badges */
 .badge {
   padding: 3px 10px;
-  border-radius: 20px;
+  border-radius: 20px; /* très arrondi = forme pilule */
   font-size: 0.75rem;
   font-weight: 600;
 }
 
-.badge-genre { background: #1e3a5f; color: #7eb3f5; }
-.badge-lang  { background: #2a1e3a; color: #b07ef5; }
+/* Badge genre — bleu */
+.badge-genre  { background: #1e3a5f; color: #7eb3f5; }
+
+/* Badge langue — violet */
+.badge-lang   { background: #2a1e3a; color: #b07ef5; }
+
+/* Badge statut (Released...) — vert */
 .badge-status { background: #1a3a2a; color: #7ef5a0; }
 
+
+/* ============================================================
+   MÉTADONNÉES — ligne d'infos en bas de chaque carte
+   (année, durée, votes, popularité)
+============================================================ */
 .movie-meta {
   display: flex;
   gap: 20px;
@@ -185,30 +301,48 @@ header span {
   color: #888;
 }
 
-.movie-meta strong { color: #e0e0e0; }
+/* Les valeurs numériques (année, durée...) en blanc */
+.movie-meta strong {
+  color: #e0e0e0;
+}
 
+
+/* ============================================================
+   BOÎTE DE NOTE — colonne droite de la carte
+   Affiche la note moyenne en grand (ex: 8.4 / 10)
+============================================================ */
 .score-box {
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
+  align-items: flex-end; /* aligné à droite */
   gap: 8px;
   min-width: 90px;
 }
 
+/* Note en grand — jaune par défaut */
 .vote-avg {
   font-size: 1.6rem;
   font-weight: 700;
   color: #f5c518;
 }
 
+/* Note ≥ 7 → vert */
 .vote-avg.good { color: #4caf50; }
+
+/* Note < 5 → rouge */
 .vote-avg.bad  { color: #e50914; }
 
+/* Classe utilitaire (non utilisée dans l'UI mais gardée pour extension) */
 .es-score {
   font-size: 0.75rem;
   color: #555;
 }
 
+
+/* ============================================================
+   PAGINATION — rangée de boutons de navigation en bas de page
+   justify-content: center centre les boutons horizontalement.
+============================================================ */
 .pagination {
   display: flex;
   justify-content: center;
@@ -216,6 +350,7 @@ header span {
   margin-top: 30px;
 }
 
+/* Style de base des boutons de pagination */
 .pagination button {
   padding: 8px 16px;
   border-radius: 6px;
@@ -227,17 +362,24 @@ header span {
   transition: all 0.2s;
 }
 
-.pagination button:hover, .pagination button.active {
+/* Au survol ou quand le bouton est la page active → rouge */
+.pagination button:hover,
+.pagination button.active {
   background: #e50914;
   border-color: #e50914;
   color: white;
 }
 
+/* Boutons désactivés (première/dernière page) — très transparents */
 .pagination button:disabled {
   opacity: 0.3;
   cursor: not-allowed;
 }
 
+
+/* ============================================================
+   MESSAGE "AUCUN RÉSULTAT"
+============================================================ */
 .no-results {
   text-align: center;
   padding: 60px 20px;
@@ -245,12 +387,20 @@ header span {
   font-size: 1.1rem;
 }
 
+
+/* ============================================================
+   ÉTAT DE CHARGEMENT — affiché pendant la requête Elasticsearch
+============================================================ */
 .loading {
   text-align: center;
   padding: 40px;
   color: #888;
 }
 
+/* Cercle qui tourne (spinner)
+   border crée un cercle gris complet,
+   border-top-color le rend rouge sur un seul côté
+   → l'animation de rotation crée l'illusion du chargement */
 .spinner {
   display: inline-block;
   width: 30px;
@@ -262,4 +412,7 @@ header span {
   margin-bottom: 10px;
 }
 
-@keyframes spin { to { transform: rotate(360deg); } }
+/* Définition de l'animation : rotation complète de 0° à 360° */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
