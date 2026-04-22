@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Movies Search Engine</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+
+<header>
+  <div>
+    <h1>&#127916; Movies Search Engine</h1>
+    <span>Powered by Elasticsearch</span>
+  </div>
+</header>
+
+<div class="container">
+  <div class="search-box">
+    <div class="search-row">
+      <input type="text" id="q" placeholder="Rechercher un film (titre, description, tagline…)" />
+      <button onclick="doSearch(1)">Rechercher</button>
+    </div>
+    <div class="filters">
+      <div class="filter-group">
+        <label>Genre</label>
+        <select id="genre"><option value="">Tous les genres</option></select>
+      </div>
+      <div class="filter-group">
+        <label>Langue</label>
+        <select id="language"><option value="">Toutes les langues</option></select>
+      </div>
+      <div class="filter-group">
+        <label>Année de</label>
+        <input type="number" id="year_from" placeholder="ex: 2000" min="1900" max="2030" />
+      </div>
+      <div class="filter-group">
+        <label>Année à</label>
+        <input type="number" id="year_to" placeholder="ex: 2024" min="1900" max="2030" />
+      </div>
+      <div class="filter-group">
+        <label>Trier par</label>
+        <select id="sort">
+          <option value="relevance">Pertinence</option>
+          <option value="popularity">Popularité</option>
+          <option value="date_desc">Date (récent)</option>
+          <option value="date_asc">Date (ancien)</option>
+          <option value="rating">Note</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div id="results-header" class="results-header" style="display:none;"></div>
+  <div id="results"></div>
+  <div id="pagination" class="pagination"></div>
+</div>
+
+<script src="{{ url_for('static', filename='search.js') }}"></script>
+</body>
+</html>
