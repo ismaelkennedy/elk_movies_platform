@@ -62,12 +62,13 @@ services:
     environment:
       - "LS_JAVA_OPTS=-Xms256m -Xmx256m"
     volumes:
-      # Chemin mis à jour selon ta capture d'écran
       - ./logstash/pipeline/logstash.conf:/usr/share/logstash/pipeline/logstash.conf:ro
       - ./logs:/usr/share/logstash/logs:ro
-      - ./data:/data:ro # "data" en minuscules comme sur ton image
+      - ./data:/data:ro
+      - logstash_data:/usr/share/logstash/data
     ports:
       - "9600:9600"
 
 volumes:
   es_data:
+  logstash_data:
