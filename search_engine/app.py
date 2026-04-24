@@ -7,6 +7,7 @@ INDEX = "movies_clean"
 
 # Mapping des options de tri disponibles dans l'UI
 SORT_OPTIONS = {
+    "trending":   [{"_score": "desc"}],
     "relevance":  [{"_score": "desc"}],
     "popularity": [{"popularity": "desc"}, {"_score": "desc"}],
     "date_desc":  [{"release_date": {"order": "desc", "unmapped_type": "date"}}, {"_score": "desc"}],
@@ -88,12 +89,28 @@ def build_query(q, genre, language, year_from, year_to, sort, page, page_size):
             }
         }
     else:
-        query = {
-            "bool": {
-                "must": [{"match_all": {}}],
-                "filter": filters
+        base = {"bool": {"must": [{"match_all": {}}], "filter": filters}}
+        if sort == "trending":
+            # Score combiné : log(popularité)*0.35 + note/10*0.40 + log(votes)*0.25
+            # log1p normalise les grandes valeurs ; diviseurs calibrés sur le dataset TMDB
+            query = {
+                "script_score": {
+                    "query": base,
+                    "script": {
+                        "source": """
+                            double pop    = doc['popularity'].size()    > 0
+                                            ? Math.log1p(doc['popularity'].value)   / Math.log1p(500)   : 0;
+                            double rating = doc['vote_average'].size()  > 0
+                                            ? doc['vote_average'].value / 10.0                          : 0;
+                            double votes  = doc['vote_count'].size()    > 0
+                                            ? Math.log1p(doc['vote_count'].value)   / Math.log1p(50000) : 0;
+                            return 1 + pop * 0.35 + rating * 0.40 + votes * 0.25;
+                        """
+                    }
+                }
             }
-        }
+        else:
+            query = base
 
     body = {
         "from": (page - 1) * page_size,
@@ -132,7 +149,7 @@ def search():
     language  = request.args.get("language", "").strip()
     year_from = request.args.get("year_from", "").strip()
     year_to   = request.args.get("year_to", "").strip()
-    sort      = request.args.get("sort", "relevance").strip()
+    sort      = request.args.get("sort", "trending").strip()
     page      = max(1, int(request.args.get("page", 1)))
     page_size = 10
 
