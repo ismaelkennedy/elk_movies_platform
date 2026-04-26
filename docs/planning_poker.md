@@ -45,7 +45,7 @@ Fibonacci: 1, 2, 3, 5, 8, 13
 - Story: US-05
   - Découpage: Développement du backend (API de liaison) séparé du frontend (affichage des résultats).
   - Risque: Difficulté de connexion entre l'application et Elasticsearch dans le réseau Docker.
-  - Action: Utilisation du nom de service Docker elasticsearch:9200 plutôt que .
+  - Action: Utilisation de localhost plutôt que du nom de service Docker elasticsearch:9200.
 
 - Story: US-06
   - Découpage: Rédaction technique (Runbook) dissociée de la rédaction fonctionnelle (Rapport final).
@@ -54,6 +54,6 @@ Fibonacci: 1, 2, 3, 5, 8, 13
 
 ## 5) Répartition finale des features
 - Membre 1: US -06
-- Membre 2: US -03 & US -04 
+- Membre 2: US -03 & US -04
 - Membre 3: US -02 & US -05
 - Membre 4: US -01 & US -03
