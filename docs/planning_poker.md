@@ -38,9 +38,9 @@ Fibonacci: 1, 2, 3, 5, 8, 13
   - Action: Validation systématique de chaque requête dans le notebook de QA.
 
 - Story: US-04
-  - Découpage: Création d'un dashboard "Volume" (métriques) et d'un dashboard "Métier" (tendances financières/genres).
-  - Risque: Calculs lents sur les champs non indexés pour l'agrégation.
-  - Action: Utilisation exclusive des champs mappés en keyword pour les agrégations Kibana.
+  - Découpage: 8 visualisations réparties en 4 lignes : métriques globales, top 10 au box-office, répartition par genre/année/    langue, et note moyenne par genre et popularité.
+  - Risque: Kibana ne permet pas d'afficher du texte dans une métrique, les notes moyennes par genre sont très proches (autour de 4) ce qui rend la visualisation peu différenciante.
+  - Action: Filtrer vote_count >= 1000 pour que le film le mieux noté soit représentatif, Exporter le dashboard en .ndjson et le versionner dans kibana/exports/.
 
 - Story: US-05
   - Découpage: Développement du backend (API de liaison) séparé du frontend (affichage des résultats).
