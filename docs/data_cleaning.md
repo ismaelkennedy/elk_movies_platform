@@ -1,6 +1,6 @@
 # Documentation du nettoyage des données
 
-Ce documents contients l'explication du traitement de nettoyage de données (movies_raw => movies_clean). 
+Ce documents contient l'explication du traitement de nettoyage de données (movies_raw => movies_clean). 
 
 ## 1. Source des données
 
@@ -24,7 +24,7 @@ Ce documents contients l'explication du traitement de nettoyage de données (mov
 | 'keywords' | Valeurs nulles | fréquent |
 | 'production_companies' | Valeurs nulles | fréquent |
 
----
+
 
 ## 3. Règles de nettoyage appliquées (Logstash)
 
@@ -121,7 +121,6 @@ if ![title] or [title] == "" {
 | Titres manquants détectés | non | oui (tag 'missing_title') |
 | Champs techniques Logstash | présents | supprimés |
 
----
 
 ## 5. Analyzer personnalisé
 
