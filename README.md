@@ -124,4 +124,15 @@ python app.py
 Interface disponible sur : **http://localhost:5000**
 
 
+## Problèmes rencontrés 
+
+
+Le projet etant donné, sur un temps de travail raccourcis, a causé beaucoup de moments de rush :
+
+- En alternant travail à l'entreprise et le travail pour le projet ELK, beaucoup de petits problèmes d'organisation surtout au début étant donné la tache de la construction du pipeline (logstach) a impacté les autres projets
+
+- Sur le tas on a due apprendre plus profondément Github :
+     - Les noms des conventions pour les commit, les PR et essayer chacun d'entre nous de l'adopter.
+     - Comment utiliser un Pull request et se le faire validé entre nous. On vérifie entre nous le code en essayant de comprendre et de s'aider. Ce denier nous a causés énormément de tort : les pull requests par défaut sont pour le main. Dans la précipitation, on a pas vérifier si elle était belle et bien pour la branch dev. 
+     En essayant après que le mal soit fait, de réparer la bourde, le insight montrant les PR entre chaque branch a été touché. Resulat une partie de la branch dev (au niveau du début du projet) a disparus, montrant ainsi comme si on avait PR sur la branch main.
 
